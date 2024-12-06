@@ -20,8 +20,11 @@
  *    getIntervalArray(0, 100) => [ 0, 1, 2, ..., 100 ]
  *    getIntervalArray(3, 3) => [ 3 ]
  */
-function getIntervalArray(/* start, end */) {
-  throw new Error('Not implemented');
+function getIntervalArray(arr1, arr2) {
+  return Array.from(
+    { length: arr2 - arr1 + 1 }, // создается объект fake array со свойством length, равным длине массива который должен получиться на выходе
+    (_v, item) => item + arr1 // функция-итератор записывает item (индекс 0,1,2 и тд) + начальное значение
+  );
 }
 
 /**
@@ -37,8 +40,13 @@ function getIntervalArray(/* start, end */) {
  *    sumArrays([10, 20, 30], [5, 10, 15]) => [15, 30, 45]
  *    sumArrays([-1, 0, 1], [1, 2, 3, 4]) => [0, 2, 4, 4]
  */
-function sumArrays(/* arr1, arr2 */) {
-  throw new Error('Not implemented');
+
+function sumArrays(arr1, arr2) {
+  const maxLength = Math.max(arr1.length, arr2.length);
+  return Array.from(
+    { length: maxLength }, // создается объект fake array со свойством length, равным длине массива который должен получиться на выходе
+    (_, item) => (arr1[item] || 0) + (arr2[item] || 0) // функция-итератор складывает два значения массивов по индексу с проверкой на наличие значения. Если значения нет, тогда результат = 0
+  );
 }
 
 /**
