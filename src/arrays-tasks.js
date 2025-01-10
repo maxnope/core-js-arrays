@@ -346,8 +346,12 @@ function calculateBalance(arr) {
  *    createChunks(['a', 'b', 'c', 'd', 'e'], 2) => [['a', 'b'], ['c', 'd'], ['e']]
  *    createChunks([10, 20, 30, 40, 50], 1) => [[10], [20], [30], [40], [50]]
  */
-function createChunks(/* arr, chunkSize */) {
-  throw new Error('Not implemented');
+function createChunks(arr, chunkSize) {
+  if (arr.length === 0) return [];
+  return [
+    arr.slice(0, chunkSize),
+    ...createChunks(arr.slice(chunkSize), chunkSize),
+  ];
 }
 
 /**
@@ -378,8 +382,8 @@ function generateOdds(len) {
  *   getElementByIndices(['one','two','three'], [2]) => 'three'  (arr[2])
  *   getElementByIndices([[[ 1, 2, 3]]], [ 0, 0, 1 ]) => 2        (arr[0][0][1])
  */
-function getElementByIndices(/* arr, indices */) {
-  throw new Error('Not implemented');
+function getElementByIndices(arr, indices) {
+  return indices.reduce((acc, index) => acc[index], arr);
 }
 
 /**
@@ -416,8 +420,10 @@ function getFalsyValuesCount(arr) {
  *                              [0,0,0,1,0],
  *                              [0,0,0,0,1]]
  */
-function getIdentityMatrix(/* n */) {
-  throw new Error('Not implemented');
+function getIdentityMatrix(n) {
+  return Array.from({ length: n }, (_, i) =>
+    Array.from({ length: n }, (_n, j) => (i === j ? 1 : 0))
+  );
 }
 
 /**
@@ -508,8 +514,19 @@ function findCommonElements(arr1, arr2) {
  *    findLongestIncreasingSubsequence([3, 10, 2, 1, 20]) => 2
  *    findLongestIncreasingSubsequence([50, 3, 10, 7, 40, 80]) => 3
  */
-function findLongestIncreasingSubsequence(/* arr */) {
-  throw new Error('Not implemented');
+function findLongestIncreasingSubsequence(arr) {
+  let length = 1;
+
+  const getLIS = arr.reduce((acc, curr, i) => {
+    if (curr > arr[i - 1]) {
+      length += 1;
+    } else {
+      length = 1;
+    }
+    return acc > length ? acc : length;
+  }, 1);
+
+  return getLIS;
 }
 
 /**
